@@ -61,7 +61,28 @@ sequenceDiagram
     API-->>User: Display data
 ```
 
-Example of a sequence diagram I can use for microservices:
+Example of a sequence diagrams I can use for microservices:
+
+```mermaid
+sequenceDiagram
+  participant flask as 1. Flask Application
+  participant db as Postgres Database
+  participant s3 as S3 Bucket
+  participant fis as 2. File Intake Service
+  participant f2vqp as 3. File to Validation Queue Publisher
+  participant rabbit as RabbitMQ
+  participant evw as 4. Email Validation Worker
+  participant vo as 5. Validation Orchestrator
+  participant rfg as 6. Results File Generator
+
+  flask ->> s3: Uploads a batch validation job at validation/uploaded/
+  flask ->> db: Records the job as pending_start
+  s3 ->> fis: Validate and clean up the file, calculate cost
+  fis ->> db: Deduct the credits from user, update status to file_accepted
+  fis ->> s3: Upload the cleaned file
+
+
+```
 
 ```mermaid
 zenuml
