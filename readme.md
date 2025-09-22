@@ -71,15 +71,27 @@ sequenceDiagram
   participant fis as 2. File Intake Service
   participant f2vqp as 3. File to Validation Queue Publisher
   participant rabbit as RabbitMQ
-  participant evw as 4. Email Validation Worker
   participant vo as 5. Validation Orchestrator
+  participant evw as 4. Email Validation Worker
   participant rfg as 6. Results File Generator
 
-  flask ->> s3: Uploads a batch validation job at validation/uploaded/
+  flask ->> s3: Uploads a batch validation job to validation/uploaded/
   flask ->> db: Records the job as pending_start
   s3 ->> fis: Validate and clean up the file, calculate cost
-  fis ->> db: Deduct the credits from user, update status to file_accepted
-  fis ->> s3: Upload the cleaned file
+  fis ->> db: Deduct  credits from user, update status to file_accepted
+  fis ->> s3: Upload cleaned file to validation/in-progress/
+  s3 ->> f2vqp: Parse the cleaned file
+  f2vqp ->> rabbit: Create a queue per file, publish each row as a message
+  f2vqp ->> db: Update status to file_queued
+  rabbit ->> vo: Consume N message per queue with Round-Robin
+  vo ->> evw: API call to send each message, retrieve result
+  vo ->> db: Update progress
+  db ->> flask: Update progress in the UI
+  vo ->> rabbit: Enqueue the results in each files' queue
+  rabbit ->> rfg: Drain results queue of the file when expected message count is reached, build result file
+  rfg ->> s3: Upload the result file to /validation/completed
+  rfg ->> db: Set status to file_validation_in_progress or file_completed, save the name of the results file
+  db ->> flask: Generate download link for results file
 
 
 ```
