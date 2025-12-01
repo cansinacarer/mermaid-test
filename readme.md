@@ -96,6 +96,82 @@ sequenceDiagram
 
 ```
 
+### Database Model
+
+```mermaid
+    erDiagram
+        
+        Users {
+            int id PK
+            string email
+            string password
+            string role
+            string stripe_customer_id
+            int tier_id FK
+            bigint credits
+            datetime cancel_at
+            string firstName
+            string lastName
+            int newsletter
+            datetime member_since
+            datetime last_login
+            string email_confirmation_code
+            datetime last_confirmation_codes_sent
+            int number_of_email_confirmation_codes_sent
+            int email_confirmed
+            string google_avatar_url
+            boolean avatar_uploaded
+            string totp_secret
+            int totp_enabled
+        }
+        
+        Tiers {
+            int id PK
+            string name
+            string label
+            string stripe_price_id
+        }
+
+        APIKeys {
+            int id PK
+            int user_id FK
+            string key_hash
+            string label
+            datetime created_at
+            datetime expires_at
+            datetime last_used
+            boolean is_active
+        }
+
+        BatchJobs {
+            int id PK
+            string uid
+            int user_id FK
+            string status
+            string original_file_name
+            string uploaded_file
+            string accepted_file
+            string results_file
+            int row_count
+            bigint last_pick_row
+            datetime last_pick_time
+            string source
+            int header_row
+            string email_column
+            datetime uploaded
+            datetime started
+            datetime finished
+            string result
+        }
+
+        Users }o--|| Tiers : "has"
+        Users ||--o{ APIKeys : "owns"
+        Users ||--o{ BatchJobs : "creates"
+```
+
+
+zenuml:
+
 ```mermaid
 zenuml
     title Order Service
