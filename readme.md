@@ -1,3 +1,13 @@
+<p align="center">
+  <img src="app/static/media/mail-list-shield-logo.png" alt="MailListShield Logo" height="120">
+</p>
+
+<h1 align="center">MailListShield - Event-Driven Email Validation SaaS</h1>
+
+<p align="center">
+  A production-grade email validation platform built with microservices architecture
+</p>
+
 # Mermaid Test
 
 My notes on using the [Mermaid Diagrams](https://mermaid.js.org/).
