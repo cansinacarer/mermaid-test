@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="app/static/media/mail-list-shield-logo.png" alt="MailListShield Logo" height="120">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="app/static/media/mail-list-shield-logo-dark-mode.png">
+    <source media="(prefers-color-scheme: light)" srcset="app/static/media/mail-list-shield-logo.png">
+    <img  alt="MailListShield Logo" height="120" src="app/static/media/mail-list-shield-logo.png">
+    </picture>
 </p>
 
 <h1 align="center">MailListShield - Event-Driven Email Validation SaaS</h1>
