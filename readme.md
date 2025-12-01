@@ -1,10 +1,7 @@
 <p align="center">
-    <img alt="MailListShield Logo" height="120" src="app/static/media/mail-list-shield-logo.png#gh-light-mode-only">
-    <img alt="MailListShield Logo" height="120" src="app/static/media/mail-list-shield-logo-dark-mode.png#gh-dark-mode-only">
+    <img alt="MailListShield Logo" height="50" src="app/static/media/mail-list-shield-logo.png#gh-light-mode-only">
+    <img alt="MailListShield Logo" height="50" src="app/static/media/mail-list-shield-logo-dark-mode.png#gh-dark-mode-only">
 </p>
-
-<h1 align="center">MailListShield - Event-Driven Email Validation SaaS</h1>
-
 <p align="center">
   A production-grade email validation platform built with microservices architecture
 </p>
